@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ComprobanteCabeza extends Model
 {
     use HasFactory;
+
+    public function comprobanteRenglon()
+    {
+        return $this->hasMany('App\Models\ComprobanteRenglon');
+    }
 }

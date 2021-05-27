@@ -16,4 +16,9 @@ class Articulo extends Model
     {
         return $this->belongsTo('App\Models\Rubro');
     }
+
+    public function comprobanteRenglon()
+    {
+        return $this->belongsTo('App\Models\ComprobanteRenglon');
+    }
 }
