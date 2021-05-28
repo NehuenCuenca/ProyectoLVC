@@ -11,12 +11,27 @@ class Articulo extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nombre',
+        'precio',
+        'fechaVencimiento',
+        'stockMinimo',
+        'stockMaximo',
+        'rubro_id',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     //Relacion uno a muchos inversa
     public function rubro()
     {
         return $this->belongsTo('App\Models\Rubro');
     }
 
+    //Relacion uno a uno inversa
     public function comprobanteRenglon()
     {
         return $this->belongsTo('App\Models\ComprobanteRenglon');

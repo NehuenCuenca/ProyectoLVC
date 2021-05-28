@@ -9,6 +9,7 @@ class ComprobanteCabeza extends Model
 {
     use HasFactory;
 
+    //Relacion uno a muchos
     public function comprobanteRenglon()
     {
         return $this->hasMany('App\Models\ComprobanteRenglon');
