@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Rubro;
 use App\Models\Articulo;
 use App\Models\ComprobanteCabeza;
+use App\Models\ComprobanteRenglon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,5 +21,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\Rubro::factory(24)->create();
         \App\Models\Articulo::factory(40)->create();
         \App\Models\ComprobanteCabeza::factory(30)->create();
+        \App\Models\ComprobanteRenglon::factory(40)->create();
     }
 }

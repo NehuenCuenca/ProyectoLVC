@@ -22,7 +22,9 @@ class ComprobanteRenglonFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'comprobanteCabeza_id' => $this->faker->numberBetween($min = 1, $max = 30),
+            'articulo_id' => $this->faker->numberBetween($min = 1, $max = 40),
+            'cantidad' => $this->faker->numberBetween($min = 20, $max = 60),
         ];
     }
 }

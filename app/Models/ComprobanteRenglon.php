@@ -16,6 +16,6 @@ class ComprobanteRenglon extends Model
 
     public function articulos()
     {
-        return $this->hasMany('App\Models\Articulo');
+        return $this->hasOne('App\Models\Articulo');
     }
 }
