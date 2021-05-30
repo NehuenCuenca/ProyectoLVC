@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\ArticuloController;
 use App\Http\Controllers\API\RubroController;
+use App\Http\Controllers\API\ComprobanteCabezaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('articulos', ArticuloController::class);
 Route::apiResource('rubros', RubroController::class);
+Route::apiResource('comprobantes-cabeza', ComprobanteCabezaController::class);
 
 /* Rutas API articulos:
         GET http://proyectolvc.test/api/articulos
