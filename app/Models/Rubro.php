@@ -10,6 +10,15 @@ class Rubro extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'titulo',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     //Relacion uno a Muchos
     public function articulos()
     {

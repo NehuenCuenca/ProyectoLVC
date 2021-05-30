@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\ArticuloController;
+use App\Http\Controllers\API\RubroController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('articulos', ArticuloController::class);
+Route::apiResource('rubros', RubroController::class);
+
 /* Rutas API articulos:
         GET http://proyectolvc.test/api/articulos
         POST http://proyectolvc.test/api/articulos
