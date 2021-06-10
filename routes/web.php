@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RubroController;
+use App\Http\Controllers\ArticuloController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,5 @@ Route::get('/', function () {
 });
 
 Route::resource('rubroscrud', 'App\Http\Controllers\RubroController');
+
+Route::resource('articuloscrud', 'App\Http\Controllers\ArticuloController');
