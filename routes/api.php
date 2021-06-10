@@ -25,7 +25,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('articulos', ArticuloController::class);
 Route::apiResource('rubros', RubroController::class);
 Route::apiResource('comprobantes-cabeza', ComprobanteCabezaController::class);
-Route::apiResource('comprobante-renglones', ComprobanteRenglonController::class);
+Route::apiResource('comprobantes-renglones', ComprobanteRenglonController::class);
 
 /* Rutas API articulos:
         GET http://proyectolvc.test/api/articulos
