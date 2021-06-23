@@ -4,7 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\ComprobanteCabeza;
+use App\Models\ComprobanteRenglon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+
 
 class ComprobanteCabezaController extends Controller
 {
@@ -27,8 +31,46 @@ class ComprobanteCabezaController extends Controller
      */
     public function store(Request $request)
     {
-        $comprobanteCabeza = ComprobanteCabeza::create($request->all());
-        return response()->json($comprobanteCabeza, 201);
+        //Valido datos con estas reglas
+        $val = Validator::make($request->all(), [
+            'codigoComprobante' => 'required|max:20',
+            'tipoOperacion' => 'required',
+            'fecha' => 'required',
+            //'datosPedidos' => 'required',
+        ]);
+
+        if($val->fails()){
+            return response()->json(['Respuesta' => 'Error', 'Mensaje' => 'Faltan datos por rellenar']);
+        }else { 
+            try {
+                DB::beginTransaction();
+
+                $comprobanteCabeza = ComprobanteCabeza::create([
+                    "codigoComprobante" => $request->codigoComprobante,
+                    "fecha" => $request->fecha,
+                    "tipoOperacion" => $request->tipoOperacion, 
+                ]);
+
+                $comprobanteRenglon = ComprobanteRenglon::create([
+                    "comprobanteCabeza_id" => $request->codigoComprobante,
+                    "articulo_id" => $request->datosPedidos->id,
+                    "cantidad" => $request->datosPedidos->cantidad, 
+                ]); 
+
+                DB::commit();
+            }
+            // Ha ocurrido un error, devolvemos la BD a su estado previo
+            catch (\Exception $e)
+            {
+                DB::rollback();
+                return response()->json(["Mensaje" => "Error!!"]);
+            }
+    
+            //$comprobanteCabeza = ComprobanteCabeza::create($request->all());
+            return response()->json($comprobanteCabeza, 201);
+        }
+
+        
     }
 
     /**
