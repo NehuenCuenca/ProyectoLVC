@@ -31,6 +31,28 @@ class ComprobanteCabezaController extends Controller
      */
     public function store(Request $request)
     {
+        /* Objeto JSON a recibir: 
+            {
+                "codigoComprobante": 435965789867590,
+                "tipoOperacion": "compra",
+                "fecha": "1998-04-14 22:45:30",
+                "datosPedidos": [
+                    {
+                        "id_art": 1,
+                        "cantidad_art": 20
+                    },
+                    {
+                        "id_art": 8,
+                        "cantidad_art": 20
+                    },
+                    {
+                        "id_art": 2,
+                        "cantidad_art": 10
+                    }
+                ]
+            }
+        */ 
+
         //Valido datos con estas reglas
         $val = Validator::make($request->all(), [
             'codigoComprobante' => 'required|max:20',

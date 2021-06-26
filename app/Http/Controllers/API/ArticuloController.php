@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Articulo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ArticuloController extends Controller
 {
@@ -27,8 +28,21 @@ class ArticuloController extends Controller
      */
     public function store(Request $request)
     {
-        $articulo = Articulo::create($request->all());
-        return response()->json($articulo, 201);
+        $val = Validator::make($request->all(), [
+            'nombre' => 'required|max:255',
+            'precio' => 'required',
+            'fechaVencimiento' => 'required',
+            'stockMinimo' => 'required',
+            'stockMaximo' => 'required',
+            'rubro_id' => 'required'
+        ]); 
+        if($val->fails()){
+            return response()->json(['Respuesta' => 'Error', 'Mensaje' => 'Faltan datos por rellenar']);
+        } else {
+            $articulo = Articulo::create($request->all());
+            return response()->json($articulo, 201);
+        }
+
     }
 
     /**

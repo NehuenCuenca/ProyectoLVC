@@ -27,8 +27,15 @@ class RubroController extends Controller
      */
     public function store(Request $request)
     {
-        $rubro = Rubro::create($request->all());
-        return response()->json($rubro, 201);
+        $val = Validator::make($request->all(), [
+            'nombre' => 'required|max:50',
+        ]); 
+        if($val->fails()){
+            return response()->json(['Respuesta' => 'Error', 'Mensaje' => 'Faltan datos por rellenar']);
+        } else {
+            $rubro = Rubro::create($request->all());
+            return response()->json($rubro, 201);
+        }
     }
 
     /**
