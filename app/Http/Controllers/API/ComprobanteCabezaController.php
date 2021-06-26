@@ -36,8 +36,8 @@ class ComprobanteCabezaController extends Controller
             'codigoComprobante' => 'required|max:20',
             'tipoOperacion' => 'required',
             'fecha' => 'required',
-            //'datosPedidos' => 'required',
-        ]);
+            'datosPedidos' => 'required',
+        ]); 
 
         if($val->fails()){
             return response()->json(['Respuesta' => 'Error', 'Mensaje' => 'Faltan datos por rellenar']);
@@ -49,28 +49,39 @@ class ComprobanteCabezaController extends Controller
                     "codigoComprobante" => $request->codigoComprobante,
                     "fecha" => $request->fecha,
                     "tipoOperacion" => $request->tipoOperacion, 
-                ]);
-
-                $comprobanteRenglon = ComprobanteRenglon::create([
-                    "comprobanteCabeza_id" => $request->codigoComprobante,
-                    "articulo_id" => $request->datosPedidos->id,
-                    "cantidad" => $request->datosPedidos->cantidad, 
                 ]); 
 
+                $articulosPedidos= $request->datosPedidos;
+                $cant_articulos= count($articulosPedidos);
+                $id_comprobanteCabeza= DB::Table('comprobante_cabezas')->where('codigoComprobante', $request->codigoComprobante)->value('id');
+
+                for($i=0; $i < $cant_articulos ; $i++) {
+                    $comprobanteRenglon = ComprobanteRenglon::create([ 
+                        "comprobanteCabeza_id" => $id_comprobanteCabeza,
+                        "articulo_id" => $request->datosPedidos[$i]['id_art'],
+                        "cantidad" => $request->datosPedidos[$i]['cantidad_art'],
+                    ]);
+                }  
+                 
+                $cont_articulos= 0;
                 DB::commit();
             }
             // Ha ocurrido un error, devolvemos la BD a su estado previo
             catch (\Exception $e)
             {
+                dd($e);
                 DB::rollback();
                 return response()->json(["Mensaje" => "Error!!"]);
             }
     
             //$comprobanteCabeza = ComprobanteCabeza::create($request->all());
             return response()->json($comprobanteCabeza, 201);
-        }
+        } 
 
-        
+        //dd($request); 
+
+        //$comprobanteCabeza = ComprobanteCabeza::create($request->all());
+        //return response()->json($comprobanteCabeza, 201);
     }
 
     /**
