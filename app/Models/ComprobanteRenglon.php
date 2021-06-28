@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ComprobanteCabeza;
 
 class ComprobanteRenglon extends Model
 {
@@ -27,7 +28,7 @@ class ComprobanteRenglon extends Model
     }
 
     //Relacion uno a uno
-    public function articulos()
+    public function articulo()
     {
         return $this->hasOne('App\Models\Articulo');
     }

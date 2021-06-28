@@ -58,7 +58,7 @@ class ComprobanteCabezaController extends Controller
             'codigoComprobante' => 'required|max:20',
             'tipoOperacion' => 'required',
             'fecha' => 'required',
-            'datosPedidos' => 'required',
+            //'datosPedidos' => 'required',
         ]); 
 
         if($val->fails()){
@@ -91,7 +91,7 @@ class ComprobanteCabezaController extends Controller
             // Ha ocurrido un error, devolvemos la BD a su estado previo
             catch (\Exception $e)
             {
-                dd($e);
+                //dd($e);
                 DB::rollback();
                 return response()->json(["Mensaje" => "Error!!"]);
             }

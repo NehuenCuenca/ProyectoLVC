@@ -21,7 +21,7 @@ class ComprobanteCabeza extends Model
     ];
 
     //Relacion uno a muchos
-    public function comprobanteRenglon()
+    public function comprobanteRenglons()
     {
         return $this->hasMany('App\Models\ComprobanteRenglon');
     }
