@@ -11,7 +11,7 @@ class ComprobanteRenglon extends Model
     use HasFactory;
 
     protected $fillable = [
-        'comprobanteCabeza_id',
+        'comprobante_cabeza_id',
         'articulo_id',
         'cantidad',
     ];

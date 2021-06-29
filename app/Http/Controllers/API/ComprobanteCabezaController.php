@@ -79,19 +79,22 @@ class ComprobanteCabezaController extends Controller
 
                 for($i=0; $i < $cant_articulos ; $i++) {
                     $comprobanteRenglon = ComprobanteRenglon::create([ 
-                        "comprobanteCabeza_id" => $id_comprobanteCabeza,
+                        "comprobante_cabeza_id" => $id_comprobanteCabeza,
                         "articulo_id" => $request->datosPedidos[$i]['id_art'],
                         "cantidad" => $request->datosPedidos[$i]['cantidad_art'],
+                        
                     ]);
+                    
                 }  
-                 
+
+
                 $cont_articulos= 0;
-                DB::commit();
+                DB::commit(); 
             }
             // Ha ocurrido un error, devolvemos la BD a su estado previo
             catch (\Exception $e)
             {
-                //dd($e);
+                dd($e);
                 DB::rollback();
                 return response()->json(["Mensaje" => "Error!!"]);
             }
