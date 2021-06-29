@@ -16,8 +16,8 @@ class CreateComprobanteRenglonsTable extends Migration
         Schema::create('comprobante_renglons', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('comprobanteCabeza_id')->nullable();
-            $table->foreign('comprobanteCabeza_id')
+            $table->unsignedBigInteger('comprobante_cabeza_id')->nullable();
+            $table->foreign('comprobante_cabeza_id')
                     ->references('id')->on('comprobante_cabezas')
                     ->onDelete('set null');
             

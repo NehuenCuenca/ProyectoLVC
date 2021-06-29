@@ -31,9 +31,9 @@ class Articulo extends Model
         return $this->belongsTo('App\Models\Rubro');
     }
 
-    //Relacion uno a uno inversa
+    //Relacion uno a uno
     public function comprobanteRenglon()
     {
-        return $this->belongsTo('App\Models\ComprobanteRenglon');
+        return $this->hasOne('App\Models\ComprobanteRenglon');
     }
 }

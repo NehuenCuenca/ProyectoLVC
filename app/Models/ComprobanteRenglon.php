@@ -27,9 +27,9 @@ class ComprobanteRenglon extends Model
         return $this->belongsTo('App\Models\ComprobanteCabeza');
     }
 
-    //Relacion uno a uno
+    //Relacion uno a uno inversa
     public function articulo()
     {
-        return $this->hasOne('App\Models\Articulo');
+        return $this->belongsTo('App\Models\Articulo');
     }
 }
