@@ -94,7 +94,7 @@ class ComprobanteCabezaController extends Controller
             // Ha ocurrido un error, devolvemos la BD a su estado previo
             catch (\Exception $e)
             {
-                dd($e);
+                //dd($e);
                 DB::rollback();
                 return response()->json(["Mensaje" => "Error!!"]);
             }
