@@ -75,18 +75,16 @@ class ComprobanteCabezaController extends Controller
 
                 $articulosPedidos= $request->datosPedidos;
                 $cant_articulos= count($articulosPedidos);
-                $id_comprobanteCabeza= DB::Table('comprobante_cabezas')->where('codigoComprobante', $request->codigoComprobante)->value('id');
 
                 for($i=0; $i < $cant_articulos ; $i++) {
                     $comprobanteRenglon = ComprobanteRenglon::create([ 
-                        "comprobante_cabeza_id" => $id_comprobanteCabeza,
+                        
+                        "comprobante_cabeza_id" => $comprobanteCabeza->id,
                         "articulo_id" => $request->datosPedidos[$i]['id_art'],
                         "cantidad" => $request->datosPedidos[$i]['cantidad_art'],
                         
-                    ]);
-                    
+                    ]);                    
                 }  
-
 
                 $cont_articulos= 0;
                 DB::commit(); 
