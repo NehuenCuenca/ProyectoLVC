@@ -115,8 +115,26 @@ class ComprobanteCabezaController extends Controller
      */
     public function show($id)
     {
-        $comprobanteCabeza = ComprobanteCabeza::find($id);
-        return $comprobanteCabeza->toJson(JSON_PRETTY_PRINT);
+        $cabezas= DB::table('comprobante_cabezas')
+            ->join('comprobante_renglons', 'comprobante_renglons.comprobante_cabeza_id', '=', 'comprobante_cabezas.id')
+            ->join('articulos', 'articulos.id', '=', 'comprobante_renglons.articulo_id')
+            ->select('comprobante_cabezas.*', 'articulos.nombre as nombre_articulo', 'comprobante_renglons.cantidad')
+            ->where('comprobante_cabezas.id', $id)
+            ->get();
+        return response()->json($cabezas, 200);
+
+
+        /* $consulta= "SELECT comprobante_cabezas.id, comprobante_cabezas.codigoComprobante, comprobante_cabezas.fecha, comprobante_cabezas.tipoOperacion, 
+        articulos.nombre AS nombre_articulo, comprobante_renglons.cantidad 
+        FROM comprobante_cabezas INNER JOIN comprobante_renglons 
+                ON	comprobante_cabezas.id = comprobante_renglons.comprobante_cabeza_id 
+                    INNER JOIN articulos 
+                                ON articulos.id = comprobante_renglons.articulo_id
+        WHERE comprobante_cabezas.id = $id
+        ORDER BY(comprobante_renglons.articulo_id)
+        ;";
+        $comprobanteCabeza= DB::select($consulta);
+        return response()->json($comprobanteCabeza, 200); */
     }
 
     /**
@@ -138,9 +156,40 @@ class ComprobanteCabezaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ComprobanteCabeza $comprobanteCabeza)
+    public function destroy($id, ComprobanteCabeza $comprobanteCabeza)
     {
-        ComprobanteCabeza::destroy($comprobanteCabeza->id);
-        return response()->json(['SolicitudHTTP' => 'Exitosa', 'Mensaje' => 'Comprobante CABEZA eliminado']);
+        try {
+            DB::beginTransaction();
+            $articulos= ComprobanteCabeza::find($id)->comprobanteRenglons;
+            
+            $cant_articulos= count($articulos);
+            //dd($cant_articulos);
+
+            for($i=0; $i < $cant_articulos ; $i++) { 
+                ComprobanteRenglon::where('comprobante_cabeza_id', $id)
+                                    ->delete();                   
+            }  
+     
+            ComprobanteCabeza::where('id', $id)->delete();
+        
+            $cont_articulos= 0; 
+             
+            DB::commit(); 
+        }
+        // Ha ocurrido un error, devolvemos la BD a su estado previo
+        catch (\Exception $e)
+        {
+            dd($e);
+            DB::rollback();
+            return response()->json(["Mensaje" => "Error!!"]);
+        }
+
+        //$comprobanteCabeza = ComprobanteCabeza::create($request->all());
+        return response()
+                    ->json(['SolicitudHTTP' => 'Exitosa',
+                     'Mensaje' => 'Comprobante CABEZA y sus RENGLONES eliminados']);
+
+        /* ComprobanteCabeza::destroy($comprobanteCabeza->id);
+         */
     }
 }

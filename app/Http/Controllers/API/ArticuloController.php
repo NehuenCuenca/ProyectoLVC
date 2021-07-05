@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Articulo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+
 
 class ArticuloController extends Controller
 {
@@ -16,8 +18,14 @@ class ArticuloController extends Controller
      */
     public function index()
     {
-        $articulo = Articulo::all();
-        return $articulo->toJson(JSON_PRETTY_PRINT);
+        $articulos= DB::table('articulos')
+            ->join('rubros', 'articulos.rubro_id', '=', 'rubros.id')
+            ->select('articulos.*', 'rubros.titulo as nombre_rubro')
+            ->get();
+        return response()->json($articulos, 200); 
+
+        /* $articulo = Articulo::all()->join();
+        return $articulo->toJson(JSON_PRETTY_PRINT); */ 
     }
 
     /**
@@ -53,8 +61,19 @@ class ArticuloController extends Controller
      */
     public function show($id)
     {
-        $articulo = Articulo::find($id);
-        return $articulo->toJson(JSON_PRETTY_PRINT);
+        $articulosSQL= "SELECT articulos.id, articulos.nombre, 
+                                articulos.precio, 
+                                articulos.fechaVencimiento, 
+                                articulos.stockMinimo, 
+                                articulos.stockMaximo, 
+                                articulos.rubro_id, 
+                                rubros.titulo AS nombre_rubro 
+            FROM articulos
+                INNER JOIN rubros 
+                        ON articulos.rubro_id = rubros.id
+            WHERE articulos.id = $id;";
+        $articulos= DB::select($articulosSQL);
+        return response()->json($articulos[0], 200);
     }
 
     /**

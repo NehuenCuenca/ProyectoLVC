@@ -5,6 +5,7 @@ use App\Http\Controllers\API\ArticuloController;
 use App\Http\Controllers\API\RubroController;
 use App\Http\Controllers\API\ComprobanteCabezaController;
 use App\Http\Controllers\API\ComprobanteRenglonController;
+use App\Http\Controllers\API\InventarioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,19 +19,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//MIDDLEWARES 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+//API RUTAS
 Route::apiResource('articulos', ArticuloController::class);
+
 Route::apiResource('rubros', RubroController::class);
+
 Route::apiResource('comprobantes-cabeza', ComprobanteCabezaController::class);
+
 Route::apiResource('comprobantes-renglones', ComprobanteRenglonController::class);
 
-/* Rutas API articulos:
-        GET http://proyectolvc.test/api/articulos
-        POST http://proyectolvc.test/api/articulos
-        GET http://proyectolvc.test/api/articulos/13
-        PUT http://proyectolvc.test/api/articulos/13
-        DELETE http://proyectolvc.test/api/articulos/13
-*/
+Route::get('/inventario/{id_rubro}/{fecha}', [InventarioController::class,'index']);
+

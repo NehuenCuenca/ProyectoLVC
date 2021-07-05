@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\ComprobanteRenglon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class ComprobanteRenglonController extends Controller
 {
@@ -16,7 +18,9 @@ class ComprobanteRenglonController extends Controller
     public function index()
     {
         $comprobanteRenglones = ComprobanteRenglon::all();
-        return $comprobanteRenglones->toJson(JSON_PRETTY_PRINT);
+        /* $comprobanteRenglones = ComprobanteRenglon::orderBy('comprobante_cabeza_id','ASC')->get(); */
+        return $comprobanteRenglones->toJson(JSON_PRETTY_PRINT); 
+
     }
 
     /**
@@ -39,7 +43,8 @@ class ComprobanteRenglonController extends Controller
      */
     public function show($id)
     {
-        $comprobanteRenglones = ComprobanteRenglon::find($id);
+        $comprobanteRenglones = ComprobanteRenglon::where('id', $id)
+                                                        ->get();
         return $comprobanteRenglones->toJson(JSON_PRETTY_PRINT);
     }
 
