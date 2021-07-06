@@ -115,6 +115,7 @@ class ComprobanteCabezaController extends Controller
      */
     public function show($id)
     {
+        //Comprobante CABEZA con sus RENGLONES
         $cabezas= DB::table('comprobante_cabezas')
             ->join('comprobante_renglons', 'comprobante_renglons.comprobante_cabeza_id', '=', 'comprobante_cabezas.id')
             ->join('articulos', 'articulos.id', '=', 'comprobante_renglons.articulo_id')
