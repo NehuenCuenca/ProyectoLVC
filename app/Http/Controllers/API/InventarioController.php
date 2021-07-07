@@ -20,7 +20,6 @@ class InventarioController extends Controller
             $fecha= date('Y-m-d');
         }
 
-
         if($id_rubro == 0){
             $inventario= DB::table('articulos')
             ->select("articulos.id", "articulos.nombre", "articulos.rubro_id", DB::raw("(SELECT

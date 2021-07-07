@@ -19,8 +19,7 @@ class ComprobanteRenglonController extends Controller
     {
         $comprobanteRenglones = ComprobanteRenglon::all();
         /* $comprobanteRenglones = ComprobanteRenglon::orderBy('comprobante_cabeza_id','ASC')->get(); */
-        return $comprobanteRenglones->toJson(JSON_PRETTY_PRINT); 
-
+        return $comprobanteRenglones->toJson(JSON_PRETTY_PRINT);  
     }
 
     /**

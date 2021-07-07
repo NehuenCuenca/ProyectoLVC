@@ -2,32 +2,38 @@
 
 <h3>Articulos</h3>
     INDEX(get): http://proyectolvc.test/api/articulos
+    <br>
     STORE(post): http://proyectolvc.test/api/articulos
+    <br>
     SHOW(get): http://proyectolvc.test/api/articulos/ID
+    <br>
     UPDATE(put): http://proyectolvc.test/api/articulos/ID
-    DESTROY(delete): http://proyectolvc.test/api/articulos/ID
+    <br>
+    DESTROY(delete): http://proyectolvc.test/api/articulos/ID <br><hr><br>
+
 
 <h3>Rubros</h3>
-    INDEX(get): http://proyectolvc.test/api/rubros
-    STORE(post): http://proyectolvc.test/api/rubros
-    SHOW(get): http://proyectolvc.test/api/rubros/ID
-    UPDATE(put): http://proyectolvc.test/api/rubros/ID
-    DESTROY(delete): http://proyectolvc.test/api/rubros/ID
+    INDEX(get): http://proyectolvc.test/api/rubros <br>
+    STORE(post): http://proyectolvc.test/api/rubros <br>
+    SHOW(get): http://proyectolvc.test/api/rubros/ID <br>
+    UPDATE(put): http://proyectolvc.test/api/rubros/ID <br>
+    DESTROY(delete): http://proyectolvc.test/api/rubros/ID <br><hr><br>
 
 <h3>Comprobantes Cabeza</h3>
-    INDEX(get): http://proyectolvc.test/api/comprobantes-cabeza
-    STORE(post): http://proyectolvc.test/api/comprobantes-cabeza
-    SHOW(get): http://proyectolvc.test/api/comprobantes-cabeza/ID
-    ############## COMENTARIO: La funcion SHOW me retorna los renglones de un comprobante, que son mostrados en el boton CONSULTAR de la vista de COMPROBANTES ########################################################
-    UPDATE(put): NO USO 
-    DESTROY(delete): http://proyectolvc.test/api/comprobantes-cabeza/ID
+    INDEX(get): http://proyectolvc.test/api/comprobantes-cabeza <br>
+    STORE(post): http://proyectolvc.test/api/comprobantes-cabeza <br> 
+    SHOW(get): http://proyectolvc.test/api/comprobantes-cabeza/ID <br>
+    ############## COMENTARIO: La funcion SHOW me retorna los renglones de un comprobante, que son mostrados en el boton CONSULTAR de la vista de COMPROBANTES ######################################################## <br>
+    UPDATE(put): NO USO  <br>
+    DESTROY(delete): http://proyectolvc.test/api/comprobantes-cabeza/ID  <br><hr><br>
 
 <h3>Comprobante Renglones</h3>
-    No uso ninguna funcion del controlador ComprobanteRenglon, ya que las acciones que preciso hacer, ya las hago en conjunto con el controlador Comprobante Cabeza, ejemplo, para borrar un comprobante entero (cabeza y sus renglones), lo hago dentro del controlador ComprobanteCabeza...
+    No uso ninguna funcion del controlador ComprobanteRenglon, ya que las acciones que preciso hacer, ya las hago en conjunto con el controlador Comprobante Cabeza, ejemplo, para borrar un comprobante entero (cabeza y sus renglones), lo hago dentro del controlador ComprobanteCabeza... <hr>
 
 <h3>Inventario</h3>
     INDEX(get): http://proyectolvc.test/api/inventario/ID/FECHA 
-        (ejemplo: http://proyectolvc.test/api/inventario/7/2021-07-22)
+        (ejemplo: http://proyectolvc.test/api/inventario/7/2021-07-22) <br>
+        <hr> <hr> 
 
 
 
