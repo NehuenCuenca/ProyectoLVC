@@ -1,3 +1,36 @@
+<h1>Rutas para usar en POSTMAN</h1>
+
+<h3>Articulos</h3>
+    INDEX(get): http://proyectolvc.test/api/articulos
+    STORE(post): http://proyectolvc.test/api/articulos
+    SHOW(get): http://proyectolvc.test/api/articulos/ID
+    UPDATE(put): http://proyectolvc.test/api/articulos/ID
+    DESTROY(delete): http://proyectolvc.test/api/articulos/ID
+
+<h3>Rubros</h3>
+    INDEX(get): http://proyectolvc.test/api/rubros
+    STORE(post): http://proyectolvc.test/api/rubros
+    SHOW(get): http://proyectolvc.test/api/rubros/ID
+    UPDATE(put): http://proyectolvc.test/api/rubros/ID
+    DESTROY(delete): http://proyectolvc.test/api/rubros/ID
+
+<h3>Comprobantes Cabeza</h3>
+    INDEX(get): http://proyectolvc.test/api/comprobantes-cabeza
+    STORE(post): http://proyectolvc.test/api/comprobantes-cabeza
+    SHOW(get): http://proyectolvc.test/api/comprobantes-cabeza/ID
+    ############## COMENTARIO: La funcion SHOW me retorna los renglones de un comprobante, que son mostrados en el boton CONSULTAR de la vista de COMPROBANTES ########################################################
+    UPDATE(put): NO USO 
+    DESTROY(delete): http://proyectolvc.test/api/comprobantes-cabeza/ID
+
+<h3>Comprobante Renglones</h3>
+    No uso ninguna funcion del controlador ComprobanteRenglon, ya que las acciones que preciso hacer, ya las hago en conjunto con el controlador Comprobante Cabeza, ejemplo, para borrar un comprobante entero (cabeza y sus renglones), lo hago dentro del controlador ComprobanteCabeza...
+
+<h3>Inventario</h3>
+    INDEX(get): http://proyectolvc.test/api/inventario/ID/FECHA 
+        (ejemplo: http://proyectolvc.test/api/inventario/7/2021-07-22)
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">

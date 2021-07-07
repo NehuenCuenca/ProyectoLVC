@@ -142,8 +142,8 @@ class ComprobanteCabezaController extends Controller
      */
     public function update(Request $request, ComprobanteCabeza $comprobanteCabeza)
     {
-        $comprobanteCabeza->update($request->all());
-        return response()->json(['SolicitudHTTP' => 'Exitosa', 'Mensaje' => 'Comprobante CABEZA editado']);
+        /* $comprobanteCabeza->update($request->all());
+        return response()->json(['SolicitudHTTP' => 'Exitosa', 'Mensaje' => 'Comprobante CABEZA editado']); */
     }
 
     /**
