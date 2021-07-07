@@ -75,15 +75,14 @@ class ComprobanteCabezaController extends Controller
 
                 $articulosPedidos= $request->datosPedidos;
                 $cant_articulos= count($articulosPedidos);
-
+               
                 for($i=0; $i < $cant_articulos ; $i++) {
                     $comprobanteRenglon = ComprobanteRenglon::create([ 
-                        
                         "comprobante_cabeza_id" => $comprobanteCabeza->id,
                         "articulo_id" => $request->datosPedidos[$i]['id_art'],
                         "cantidad" => $request->datosPedidos[$i]['cantidad_art'],
-                        
-                    ]);                    
+                    ]);  
+                    //abort(404);                  
                 }  
 
                 $cont_articulos= 0;
@@ -101,10 +100,6 @@ class ComprobanteCabezaController extends Controller
             return response()->json($comprobanteCabeza, 201);
         } 
 
-        //dd($request); 
-
-        //$comprobanteCabeza = ComprobanteCabeza::create($request->all());
-        //return response()->json($comprobanteCabeza, 201);
     }
 
     /**
