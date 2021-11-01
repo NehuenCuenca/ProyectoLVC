@@ -100,4 +100,28 @@ class ArticuloController extends Controller
         Articulo::destroy($articulo->id);
         return response()->json(['SolicitudHTTP' => 'Exitosa', 'Mensaje' => 'Articulo eliminado']);
     }
+    
+    public function filtroRubro($rubro_id)
+    {
+        if($rubro_id < 0){
+            return response()->json([
+                'SolicitudHTTP' => 'Error', 
+                'Mensaje' => 'Ese rubro no existe',
+            ], 200);
+        }
+
+        $articulos = DB::table('articulos')
+                            ->join('rubros', 'articulos.rubro_id', '=', 'rubros.id')
+                            ->select('articulos.*', 'rubros.titulo as nombre_rubro')
+                            ->when($rubro_id, function ($sql, $rubro_id) {
+                                return $sql->where('rubros.id', '=', $rubro_id);
+                            })
+                            ->get();
+        
+        return response()->json([
+            'SolicitudHTTP' => 'Exitosa', 
+            'Mensaje' => 'Articulos filtrados por el rubro: '.$rubro_id,
+            'articulos' => $articulos
+        ], 200);
+    } 
 }

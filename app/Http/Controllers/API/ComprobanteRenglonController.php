@@ -57,7 +57,10 @@ class ComprobanteRenglonController extends Controller
     public function update(Request $request, ComprobanteRenglon $comprobanteRenglones)
     {
         $comprobanteRenglones->update($request->all());
-        return response()->json(['SolicitudHTTP' => 'Exitosa', 'Mensaje' => 'Comprobante RENGLONES editado']);
+        return response()->json([
+            'SolicitudHTTP' => 'Exitosa', 
+            'Mensaje' => 'Comprobante RENGLONES editado'
+        ]);
     }
 
     /**

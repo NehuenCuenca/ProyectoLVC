@@ -15,14 +15,22 @@ class InventarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index($id_rubro,$fecha)
-    {
-        if(!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $fecha)){
-            $fecha= date('Y-m-d');
+    {   
+        if($id_rubro!=0){
+            $existeRubro= DB::table('rubros')
+                                ->where('rubros.id', '=', $id_rubro)
+                                ->get();
+            
+            if($existeRubro->isEmpty() || $id_rubro <= -1){
+                return response()->json([
+                    'SolicitudHTTP' => 'Error', 
+                    'Mensaje' => 'El rubro especificado no existe. Intente con otro rubro.'
+                ],400);
+            }
         }
 
-        if($id_rubro == 0){
-            $inventario= DB::table('articulos')
-            ->select("articulos.id", "articulos.nombre", "articulos.rubro_id", DB::raw("(SELECT
+        $inventario= DB::table('articulos')
+            ->select("articulos.id", "articulos.nombre", "rubros.titulo", DB::raw("(SELECT
             (COALESCE(
                 SUM(
                     (CASE 
@@ -31,32 +39,14 @@ class InventarioController extends Controller
                                 FROM comprobante_renglons 
                                 INNER JOIN comprobante_cabezas ON comprobante_renglons.comprobante_cabeza_id = comprobante_cabezas.id
                                 WHERE (comprobante_renglons.articulo_id = articulos.id) AND (comprobante_cabezas.fecha <= '$fecha')) AS stock "))
+            ->join('rubros', 'articulos.rubro_id', '=', 'rubros.id')
             ->orderBy('articulos.rubro_id', 'ASC')
-            ->get();    
-        } else {
-            $existeRubro= count(Articulo::where('rubro_id', $id_rubro)->get());
-            if(($id_rubro <= -1) || ($existeRubro == 0)){
-                return response()->json(['Solicitud HTTP' => 'Rechazada', 'Mensaje' => 'No existe ese rubro o no se encontraron registros de tal'], 400);
-            } else {
-                $inventario= DB::table('articulos')
-                    ->select("articulos.id", "articulos.nombre", "articulos.rubro_id", DB::raw("(SELECT
-                    (COALESCE(
-                        SUM(
-                            (CASE 
-                                WHEN comprobante_cabezas.tipoOperacion=2
-                                    THEN -1 ELSE 1 END) * comprobante_renglons.cantidad),0))
-                                        FROM comprobante_renglons 
-                                        INNER JOIN comprobante_cabezas ON comprobante_renglons.comprobante_cabeza_id = comprobante_cabezas.id
-                                        WHERE (comprobante_renglons.articulo_id = articulos.id) AND (comprobante_cabezas.fecha <= '$fecha')) AS stock "))
-                    ->where('articulos.rubro_id', '=', $id_rubro)
-                    ->orderBy('articulos.rubro_id', 'ASC') 
-                    ->get();
-            }
-        }
-
+            ->when($id_rubro, function ($query, $id_rubro) {
+                return $query->where('rubros.id', $id_rubro);
+            })
+            ->get();
         
         return response()->json($inventario, 200);
-        $id_rubro=0;
     }
 
     /**

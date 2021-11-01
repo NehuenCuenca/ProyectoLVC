@@ -19,7 +19,7 @@ class CreateComprobanteRenglonsTable extends Migration
             $table->unsignedBigInteger('comprobante_cabeza_id')->nullable();
             $table->foreign('comprobante_cabeza_id')
                     ->references('id')->on('comprobante_cabezas')
-                    ->onDelete('set null');
+                    ->onDelete('cascade');
             
             $table->unsignedBigInteger('articulo_id')->nullable();
             $table->foreign('articulo_id')

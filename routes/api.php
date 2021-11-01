@@ -27,6 +27,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //API RUTAS
 Route::apiResource('articulos', ArticuloController::class);
+Route::get('articulos/filtro/rubro/{rubro_id}', [ArticuloController::class, 'filtroRubro']);
 
 Route::apiResource('rubros', RubroController::class);
 
@@ -34,5 +35,5 @@ Route::apiResource('comprobantes-cabeza', ComprobanteCabezaController::class);
 
 Route::apiResource('comprobantes-renglones', ComprobanteRenglonController::class);
 
+//Ruta del inventario
 Route::get('/inventario/{id_rubro}/{fecha}', [InventarioController::class,'index']);
-

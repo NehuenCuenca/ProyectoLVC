@@ -85,7 +85,7 @@ class ComprobanteCabezaController extends Controller
                     //abort(404);                  
                 }  
 
-                $cont_articulos= 0;
+                $cant_articulos= 0;
                 DB::commit(); 
             }
             // Ha ocurrido un error, devolvemos la BD a su estado previo
@@ -168,7 +168,7 @@ class ComprobanteCabezaController extends Controller
      
             ComprobanteCabeza::where('id', $id)->delete();
         
-            $cont_articulos= 0; 
+            $cant_articulos= 0; 
              
             DB::commit(); 
         }
